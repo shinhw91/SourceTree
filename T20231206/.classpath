@@ -7,6 +7,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="D:/java/java_pg/eclipse/lombok.jar"/>
-	<classpathentry kind="lib" path="D:/java/java_pg/eclipse/ojdbc6_g.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
