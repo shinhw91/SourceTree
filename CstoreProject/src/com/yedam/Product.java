@@ -43,7 +43,15 @@ public class Product {
 	}
 	
 	void outInfo() {
-		System.out.printf(" %,5d      %-18s %-18s %-16s %,d원 %,13d개 %,16d원          %-18s %-18s\n", historyNumber, historyDate, productCode, productName, productPrice, productCount, saleIncome, saleSort, historySort);
+		System.out.printf(" %,5d      %-18s %-18s %-16s %,d원 %,13d개          %-18s\n", historyNumber, historyDate, productCode, productName, productPrice, productCount, historySort);
+	}
+	
+	void dayInfo() {
+		System.out.printf(" %,5d      %-18s %-18s %-16s %,d원          %-18s\n", historyNumber, historyDate, productCode, productName, saleIncome, saleSort);
+	}
+	
+	void monthInfo() {
+		System.out.printf(" %-18s %,10d원\n", historyDate, saleIncome);
 	}
 	
 	

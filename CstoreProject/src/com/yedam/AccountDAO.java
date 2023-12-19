@@ -163,6 +163,31 @@ public class AccountDAO {
 		return false;
 	}
 	
+	
+	// 사원구분 확인
+	String confirmGrade(String accountCode) {
+		getConn();
+		String accountGrade = null;
+		String sql = "select account_grade from account where account_code = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, accountCode);
+			
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				accountGrade = rs.getString(1);
+				return accountGrade;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return accountGrade;
+	}
+
+	
 
 	
 	

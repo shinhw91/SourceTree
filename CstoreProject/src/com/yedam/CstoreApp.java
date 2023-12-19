@@ -11,6 +11,7 @@ public class CstoreApp {
 		boolean run = true;
 		boolean login = false;
 		boolean manage = false;
+		boolean sales = false;
 		
 		AccountDAO aDao = new AccountDAO();
 		ProductDAO pDao = new ProductDAO();
@@ -35,6 +36,10 @@ public class CstoreApp {
 					login = true;
 					run = false;
 					
+					if(aDao.confirmGrade(accountCode).equals("관리자")) {
+						sales = true;
+					}
+				
 				} else {
 					System.out.printf("========== 로그인을 실패하였습니다. ==========\n", accountCode);
 					System.out.println();
@@ -64,11 +69,12 @@ public class CstoreApp {
 		
 		// **************************** 로그인 메뉴 *******************************
 		while(login) {
-			System.out.println("1)상품관리    2)상품입고    3)상품판매    4)내역확인    5)재고확인");
+			System.out.println("1)상품관리    2)상품입고    3)상품판매    4)내역확인    5)재고확인    6)매출확인");
 			int menu = Integer.parseInt(sc.nextLine());
 			boolean pManage = true;
 			boolean hConfirm = true;
 			boolean rConfirm = true;
+			boolean sConfirm = true;
 			
 			switch(menu) {
 				// ***************************************************** 1.상품관리
@@ -193,12 +199,11 @@ public class CstoreApp {
 					}
 					
 					String historySort = "입고";
-					String saleSort = " - ";
 					
 					// 상품등록 확인
 					if(pDao.confirmProduct(productCode)) {
 						// 내역 테이블
-						if(pDao.enterProduct(historyNumber, historyDate, productCode, productCount, historySort, saleSort)) {
+						if(pDao.enterProduct(historyNumber, historyDate, productCode, productCount, historySort)) {
 							// 상품재고
 							int productRemain = pDao.confirmRemain(productCode) + productCount;
 							// 상품 테이블
@@ -240,7 +245,7 @@ public class CstoreApp {
 					}
 					
 					System.out.print("결제방법(1.현금  2.카드) >> ");
-					saleSort = "";
+					String saleSort = "";
 					int num = Integer.parseInt(sc.nextLine());
 					if(num == 1) {
 						saleSort = "현금";
@@ -252,23 +257,33 @@ public class CstoreApp {
 					int saleIncome = pDao.confirmPrice(productCode) * productCount;
 					historySort = "판매";
 					
-					// 상품등록 확인
-					if(pDao.confirmProduct(productCode)) {
-						// 내역 테이블
-						if(pDao.outProduct(historyNumber, historyDate, productCode, productCount, saleIncome, saleSort, historySort)) {
-							// 상품재고
-							int productRemain = pDao.confirmRemain(productCode) - productCount;
-							// 상품 테이블
-							pDao.updateRemain(productCode, productRemain);
-							System.out.println("========== 상품이 판매되었습니다. ==========");
-							System.out.println();
+					// 상품재고 비교
+					int productRemain = pDao.confirmRemain(productCode);
+					if(productCount <= productRemain) {
+					
+						// 상품등록 확인
+						if(pDao.confirmProduct(productCode)) {
+							// 내역 테이블
+							if(pDao.outProduct(historyNumber, historyDate, productCode, productCount, saleIncome, saleSort, historySort)) {
+								// 상품재고
+								productRemain = pDao.confirmRemain(productCode) - productCount;
+								// 상품 테이블
+								pDao.updateRemain(productCode, productRemain);
+								System.out.println("========== 상품이 판매되었습니다. ==========");
+								System.out.println();
+							} else {
+								System.out.println("========== 상품 판매를 실패하였습니다. ==========");
+								System.out.println();
+							}
+							
 						} else {
-							System.out.println("========== 상품 판매를 실패하였습니다. ==========");
+							System.out.println("========== 상품 판매를 실패하였습니다(미등록). ==========");
 							System.out.println();
-						}
+						}	
+						
 						
 					} else {
-						System.out.println("========== 등록되어 있지 않은 상품은 판매할 수 없습니다. 상품을 등록해주세요. ==========");
+						System.out.println("========== 상품 판매를 실패하였습니다(재고 부족). ==========");
 						System.out.println();
 					}
 					break;
@@ -286,38 +301,38 @@ public class CstoreApp {
 						// 1.입고내역
 						case 1 :
 							System.out.println(" 《번 호》   《영 업 일 자》       《상 품 코 드》       《상 품 명》         《가 격》         《수 량》       《내 역 구 분》");
-							System.out.println("=====================================================================================================================");
+							System.out.println("==================================================================================================================");
 						
 							for(Product list : pDao.enterList()) {
 								list.enterInfo();
 							}
-							System.out.println("=====================================================================================================================");
+							System.out.println("==================================================================================================================");
 							System.out.println();
 							break;
 							
 							
 						// 2.판매내역
 						case 2 :
-							System.out.println(" 《번 호》   《영 업 일 자》       《상 품 코 드》       《상 품 명》         《가 격》         《수 량》       《매 출 액》         《결 제 방 법》         《내 역 구 분》");
-							System.out.println("============================================================================================================================================================");
+							System.out.println(" 《번 호》   《영 업 일 자》       《상 품 코 드》       《상 품 명》         《가 격》         《수 량》       《내 역 구 분》");
+							System.out.println("==================================================================================================================");
 							
 							for(Product list : pDao.outList()) {
 								list.outInfo();
 							}
-							System.out.println("============================================================================================================================================================");
+							System.out.println("==================================================================================================================");
 							System.out.println();
 							break;
 							
 							
 						// 3.전체내역
 						case 3 :
-							System.out.println(" 《번 호》   《영 업 일 자》       《상 품 코 드》       《상 품 명》         《가 격》         《수 량》       《매 출 액》         《결 제 방 법》         《내 역 구 분》");
-							System.out.println("============================================================================================================================================================");
+							System.out.println(" 《번 호》   《영 업 일 자》       《상 품 코 드》       《상 품 명》         《가 격》         《수 량》       《내 역 구 분》");
+							System.out.println("==================================================================================================================");
 							
 							for(Product list : pDao.fullList()) {
 								list.outInfo();
 							}
-							System.out.println("============================================================================================================================================================");
+							System.out.println("==================================================================================================================");
 							System.out.println();
 							break;	
 							
@@ -382,6 +397,65 @@ public class CstoreApp {
 					
 					
 					
+					
+				// ***************************************************** 6.매출확인
+				case 6 :
+					if(sales) {
+						while(sConfirm) {
+							System.out.println("(1)일일매출    (2)월별매출    (3)이전메뉴로 이동");
+							int subMenu = Integer.parseInt(sc.nextLine());
+							
+							switch(subMenu) {
+							// 1.일일매출
+							case 1 :
+								System.out.print("영업일자 입력(YYYY-MM-DD) >> ");
+								historyDate = sc.nextLine();
+								System.out.print(" 《일 일 매 출 액》 ");
+								int daySum = pDao.daySum(historyDate);
+								System.out.printf("%,d원\n", daySum);
+								
+								System.out.println(" 《번 호》   《영 업 일 자》       《상 품 코 드》       《상 품 명》         《매 출 액》         《결 제 방 법》");
+								System.out.println("======================================================================================================");
+								
+								for(Product list : pDao.dayList(historyDate)) {
+									list.dayInfo();
+								}
+								System.out.println("======================================================================================================");
+								System.out.println();
+								break;
+								
+								
+							// 2.월별매출
+							case 2 :
+								System.out.println(" 《영 업 월》          《매 출 액》");
+								System.out.println("=================================");
+								
+								for(Product list : pDao.monthList()) {
+									list.monthInfo();
+								}
+								System.out.println("=================================");
+								System.out.println();
+								break;
+								
+								
+							// 3.이전메뉴로 이동
+							case 3 :
+								sConfirm = false;	
+							
+							}
+							
+						}
+					} else {
+						System.out.println("========== 관리자 계정으로 로그인해주세요(접근권한 없음). ==========");
+					}
+					break;
+					
+					
+					
+					
+			
+					
+					
 			}
 		}
 		
@@ -402,8 +476,14 @@ public class CstoreApp {
 				String accountPw = sc.nextLine();
 				System.out.print("사원명 입력 >> ");
 				String accountName = sc.nextLine();
-				System.out.print("사원구분 입력 >> ");
-				String accountGrade = sc.nextLine();
+				System.out.print("사원구분 입력(1.관리자  2.판매원) >> ");
+				String accountGrade = "";
+				int num = Integer.parseInt(sc.nextLine());
+				if(num == 1) {
+					accountGrade = "관리자";
+				} else if (num == 2) {
+					accountGrade = "판매원";
+				}
 				
 				if(aDao.addAccount(accountCode, accountName, accountGrade, accountPw)) {
 					System.out.println("========== 계정이 등록되었습니다. ==========");

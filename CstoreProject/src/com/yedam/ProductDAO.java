@@ -176,7 +176,7 @@ public class ProductDAO {
 				
 				rs = psmt.executeQuery();
 				if(rs.next()) {
-					historyNumber = rs.getInt("max(history_number)");
+					historyNumber = rs.getInt(1);
 					return historyNumber;
 				}
 				
@@ -212,9 +212,9 @@ public class ProductDAO {
 
 	
 	// 내역 테이블
-	boolean enterProduct(int historyNumber, String historyDate, String productCode, int productCount, String historySort, String saleSort) {
+	boolean enterProduct(int historyNumber, String historyDate, String productCode, int productCount, String historySort) {
 		getConn();
-		String sql = "insert into history(history_number, history_date, product_code, product_count, history_sort, sale_sort) values (?, ?, ?, ?, ?, ?)";
+		String sql = "insert into history(history_number, history_date, product_code, product_count, history_sort, sale_sort) values (?, ?, ?, ?, ?)";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, historyNumber);
@@ -222,7 +222,7 @@ public class ProductDAO {
 			psmt.setString(3, productCode);
 			psmt.setInt(4, productCount);
 			psmt.setString(5, historySort);
-			psmt.setString(6, saleSort);
+//			psmt.setString(6, saleSort);
 			
 
 			int r = psmt.executeUpdate();
@@ -350,7 +350,7 @@ public class ProductDAO {
 	List<Product> enterList(){
 		getConn();
 		List<Product> products = new ArrayList<Product>();
-		String sql = "SELECT h.history_number, h.history_date, h.product_code, p.product_name, p.product_price, h.product_count, h.history_sort\r\n"
+		String sql = "select h.history_number, h.history_date, h.product_code, p.product_name, p.product_price, h.product_count, h.history_sort\r\n"
 				+ "from product p, history h\r\n"
 				+ "where p.product_code = h.product_code\r\n"
 				+ "and h.history_sort = '입고'\r\n"
@@ -382,76 +382,72 @@ public class ProductDAO {
 	
 	
 	// 판매내역
-		List<Product> outList(){
-			getConn();
-			List<Product> products = new ArrayList<Product>();
-			String sql = "SELECT h.history_number, h.history_date, h.product_code, p.product_name, p.product_price, h.product_count, h.sale_income, h.sale_sort, h.history_sort\r\n"
-					+ "from product p, history h\r\n"
-					+ "where p.product_code = h.product_code\r\n"
-					+ "and h.history_sort = '판매'\r\n"
-					+ "order by 1";
-			
-			try {
-				psmt = conn.prepareStatement(sql);
-				rs = psmt.executeQuery();
-				while(rs.next()) {
-					Product product = new Product();
-					product.setHistoryNumber(rs.getInt("history_number"));
-					product.setHistoryDate(rs.getString("history_date"));
-					product.setProductCode(rs.getString("product_code"));
-					product.setProductName(rs.getString("product_name"));
-					product.setProductPrice(rs.getInt("product_price"));
-					product.setProductCount(rs.getInt("product_count"));
-					product.setSaleIncome(rs.getInt("sale_income"));
-					product.setSaleSort(rs.getString("sale_sort"));
-					product.setHistorySort(rs.getString("history_sort"));
-					
-					products.add(product);
-				}
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				disconn();
-			}
-			return products;
-		}
+	List<Product> outList(){
+		getConn();
+		List<Product> products = new ArrayList<Product>();
+		String sql = "select h.history_number, h.history_date, h.product_code, p.product_name, p.product_price, h.product_count, h.history_sort\r\n"
+				+ "from product p, history h\r\n"
+				+ "where p.product_code = h.product_code\r\n"
+				+ "and h.history_sort = '판매'\r\n"
+				+ "order by 1";
 		
-		
-		// 전체내역
-		List<Product> fullList(){
-			getConn();
-			List<Product> products = new ArrayList<Product>();
-			String sql = "SELECT h.history_number, h.history_date, h.product_code, p.product_name, p.product_price, h.product_count, h.sale_income, h.sale_sort, h.history_sort\r\n"
-					+ "from product p, history h\r\n"
-					+ "where p.product_code = h.product_code\r\n"
-					+ "order by 1";
-			
-			try {
-				psmt = conn.prepareStatement(sql);
-				rs = psmt.executeQuery();
-				while(rs.next()) {
-					Product product = new Product();
-					product.setHistoryNumber(rs.getInt("history_number"));
-					product.setHistoryDate(rs.getString("history_date"));
-					product.setProductCode(rs.getString("product_code"));
-					product.setProductName(rs.getString("product_name"));
-					product.setProductPrice(rs.getInt("product_price"));
-					product.setProductCount(rs.getInt("product_count"));
-					product.setSaleIncome(rs.getInt("sale_income"));
-					product.setSaleSort(rs.getString("sale_sort"));
-					product.setHistorySort(rs.getString("history_sort"));
-					
-					products.add(product);
-				}
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				Product product = new Product();
+				product.setHistoryNumber(rs.getInt("history_number"));
+				product.setHistoryDate(rs.getString("history_date"));
+				product.setProductCode(rs.getString("product_code"));
+				product.setProductName(rs.getString("product_name"));
+				product.setProductPrice(rs.getInt("product_price"));
+				product.setProductCount(rs.getInt("product_count"));
+				product.setHistorySort(rs.getString("history_sort"));
 				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				disconn();
+				products.add(product);
 			}
-			return products;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
 		}
+		return products;
+	}
+	
+	
+	// 전체내역
+	List<Product> fullList(){
+		getConn();
+		List<Product> products = new ArrayList<Product>();
+		String sql = "select h.history_number, h.history_date, h.product_code, p.product_name, p.product_price, h.product_count, h.history_sort\r\n"
+				+ "from product p, history h\r\n"
+				+ "where p.product_code = h.product_code\r\n"
+				+ "order by 1";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				Product product = new Product();
+				product.setHistoryNumber(rs.getInt("history_number"));
+				product.setHistoryDate(rs.getString("history_date"));
+				product.setProductCode(rs.getString("product_code"));
+				product.setProductName(rs.getString("product_name"));
+				product.setProductPrice(rs.getInt("product_price"));
+				product.setProductCount(rs.getInt("product_count"));
+				product.setHistorySort(rs.getString("history_sort"));
+				
+				products.add(product);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return products;
+	}
 	
 		
 		
@@ -506,6 +502,97 @@ public class ProductDAO {
 			disconn();
 		}
 		return products;
+	}
+	
+	
+	
+	
+	// ***************************************************** 6.매출확인
+	// 일일매출 - 합계
+	int daySum(String historyDate) {
+		getConn();
+		int sum = 0;
+		String sql = "select sum(sale_income) from history where history_date = ?";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, historyDate);;
+			
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				sum = rs.getInt(1);
+				return sum;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return sum;
+	}
+	
+
+	// 일일매출 - 목록
+	List<Product> dayList(String historyDate) {
+		getConn();
+		List<Product> days = new ArrayList<Product>();
+		String sql = "select h.history_number, h.history_date, h.product_code, p.product_name, h.sale_income, h.sale_sort\r\n"
+				+ "from product p, history h\r\n"
+				+ "where p.product_code = h.product_code\r\n"
+				+ "and h.history_date = ?\r\n"
+				+ "and h.history_sort = '판매'\r\n"
+				+ "order by 1";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, historyDate);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				Product day = new Product();
+				day.setHistoryNumber(rs.getInt("history_number"));
+				day.setHistoryDate(rs.getString("history_date"));
+				day.setProductCode(rs.getString("product_code"));
+				day.setProductName(rs.getString("product_name"));
+				day.setSaleIncome(rs.getInt("sale_income"));
+				day.setSaleSort(rs.getString("sale_sort"));
+				
+				days.add(day);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return days;
+	}
+	
+	
+	// 월별매출
+	List<Product> monthList(){
+		getConn();
+		List<Product> months = new ArrayList<Product>();
+		String sql = "select substr(history_date, 1, 7) as month, sum(sale_income) as sum "
+				+ "from history group by substr(history_date, 1, 7) order by 1";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				Product month = new Product();
+				month.setHistoryDate(rs.getString("month"));
+				month.setSaleIncome(rs.getInt("sum"));
+				
+				months.add(month);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return months;
 	}
 	
 	
