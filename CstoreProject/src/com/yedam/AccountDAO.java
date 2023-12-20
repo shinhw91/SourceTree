@@ -30,7 +30,7 @@ public class AccountDAO {
 	}
 	
 	Connection getConn() {
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String url = "jdbc:oracle:thin:@192.168.0.29:1521:xe";
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
 			conn = DriverManager.getConnection(url, "dev", "dev");
@@ -66,6 +66,28 @@ public class AccountDAO {
 	}
 	
 	
+	// 사원코드 확인
+		boolean confirmCode(String accountCode) {
+			getConn();
+			String sql = "select * from account where account_code = ?";
+			try {
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1, accountCode);
+				
+				rs = psmt.executeQuery();
+				if(rs.next()) {
+					return true;
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				disconn();
+			}
+			return false;
+		}
+
+		
 	// 계정등록
 	boolean addAccount(String accountCode, String accountName, String accountGrade, String accountPw) {
 		getConn();

@@ -30,7 +30,7 @@ public class ProductDAO {
 	}
 	
 	Connection getConn() {
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String url = "jdbc:oracle:thin:@192.168.0.29:1521:xe";
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
 			conn = DriverManager.getConnection(url, "dev", "dev");
@@ -143,6 +143,35 @@ public class ProductDAO {
 	}
 	
 	
+	// 거래내역 확인
+		boolean confirmHistory(String productCode) {
+			getConn();
+			String sql = "select * from history where product_code = ?";
+			try {
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1, productCode);
+				
+				rs = psmt.executeQuery();
+				if(rs.next()) {
+					return true;
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				disconn();
+			}
+			return false;
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// 상품삭제
 	boolean removeProduct(String productCode) {
 		getConn();
@@ -214,7 +243,7 @@ public class ProductDAO {
 	// 내역 테이블
 	boolean enterProduct(int historyNumber, String historyDate, String productCode, int productCount, String historySort) {
 		getConn();
-		String sql = "insert into history(history_number, history_date, product_code, product_count, history_sort, sale_sort) values (?, ?, ?, ?, ?)";
+		String sql = "insert into history(history_number, history_date, product_code, product_count, history_sort) values (?, ?, ?, ?, ?)";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, historyNumber);
@@ -222,7 +251,6 @@ public class ProductDAO {
 			psmt.setString(3, productCode);
 			psmt.setInt(4, productCount);
 			psmt.setString(5, historySort);
-//			psmt.setString(6, saleSort);
 			
 
 			int r = psmt.executeUpdate();
@@ -508,6 +536,28 @@ public class ProductDAO {
 	
 	
 	// ***************************************************** 6.매출확인
+	// 영업일자 확인
+	boolean confirmDate(String historyDate) {
+		getConn();
+		String sql = "select * from history where history_date = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, historyDate);
+			
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconn();
+		}
+		return false;
+	}
+	
+	
 	// 일일매출 - 합계
 	int daySum(String historyDate) {
 		getConn();
