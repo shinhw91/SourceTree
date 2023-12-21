@@ -30,7 +30,8 @@ public class AccountDAO {
 	}
 	
 	Connection getConn() {
-		String url = "jdbc:oracle:thin:@192.168.0.29:1521:xe";
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+//		String url = "jdbc:oracle:thin:@192.168.0.29:1521:xe";
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
 			conn = DriverManager.getConnection(url, "dev", "dev");
