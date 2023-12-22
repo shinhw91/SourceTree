@@ -1,4 +1,4 @@
-package common;
+package com.yedam.student.command;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,6 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.yedam.student.service.StudentService;
+import com.yedam.student.serviceimpl.StudentServiceMybatis;
+import com.yedam.student.vo.Student;
 
 
 @WebServlet("/MyinfoServlet")
@@ -35,7 +39,7 @@ public class MyinfoServlet extends HttpServlet {
 		
 		// DB 저장
 		Student std = new Student(sno, sname, Integer.parseInt(escore), Integer.parseInt(mscore));
-		StudentDAO dao = new StudentDAO();
+		StudentService dao = new StudentServiceMybatis();
 		boolean done = dao.addStudent(std);
 		
 		PrintWriter out = response.getWriter();

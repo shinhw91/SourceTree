@@ -1,6 +1,6 @@
-<%@page import="common.Student"%>
+<%@page import="com.yedam.student.vo.Student"%>
 <%@page import="java.util.List"%>
-<%@page import="common.StudentDAO"%>
+<%@page import="com.yedam.student.mapper.StudentDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -22,7 +22,7 @@
 		for (Student std : list) {
 	%>
 		<tr>
-			<td><a href='student/studentInfo.jsp?sno="'+ std.getStudentNo() + '"'><%=std.getStudentNo() %></a></td>
+			<td><a href='studentInfo.jsp?sno=<%=std.getStudentNo() %>'><%=std.getStudentNo() %></a></td>
 			<td><%=std.getStudentName() %></td>
 			<td><%=std.getEng() %></td>
 			<td><%=std.getMath() %></td>

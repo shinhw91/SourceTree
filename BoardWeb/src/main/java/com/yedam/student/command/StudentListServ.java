@@ -1,4 +1,4 @@
-package common;
+package com.yedam.student.command;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,6 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.yedam.student.service.StudentService;
+import com.yedam.student.serviceimpl.StudentServiceMybatis;
+import com.yedam.student.vo.Student;
 
 /**
  * Servlet implementation class StudentListServ
@@ -27,8 +31,8 @@ public class StudentListServ extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		// 목록 페이지
-		StudentDAO dao = new StudentDAO();
-		List<Student> list = dao.getStudentList();
+		StudentService dao = new StudentServiceMybatis();
+		List<Student> list = dao.studentList();
 		
 //		out.print("<table border = '1'>");
 		String str = "<table border = '1'>";
