@@ -1,12 +1,8 @@
 package com.yedam.common;
 
-import java.util.List;
-
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-
-import com.yedam.board.mapper.BoardMapper;
-import com.yedam.board.vo.BoardVO;
+import com.yedam.member.service.MemberService;
+import com.yedam.member.serviceimpl.MemberServiceImpl;
+import com.yedam.member.vo.MemberVO;
 
 //import com.yedam.student.mapper.StudentMapper;
 //import com.yedam.student.service.StudentService;
@@ -24,10 +20,10 @@ public class MainExe {
 //			System.out.println("삭제 실패!");
 //		}
 		
-		SqlSessionFactory factory = DataSource.getInstance();
-		SqlSession session = factory.openSession(true);
-		
-		BoardMapper mapper = session.getMapper(BoardMapper.class);
+//		SqlSessionFactory factory = DataSource.getInstance();
+//		SqlSession session = factory.openSession(true);
+//		
+//		BoardMapper mapper = session.getMapper(BoardMapper.class);
 		// 목록
 //		List<BoardVO> list = mapper.selectList();
 //		for(BoardVO vo : list) {
@@ -35,9 +31,9 @@ public class MainExe {
 //		}
 		
 		// 단건조회
-		System.out.println(mapper.selectOne(1));
-		
-		BoardVO vo = new BoardVO();
+//		System.out.println(mapper.selectOne(1));
+//		
+//		BoardVO vo = new BoardVO();
 		// 추가
 //		vo.setTitle("추가확인");
 //		vo.setContent("추가됩니다");
@@ -70,6 +66,18 @@ public class MainExe {
 //		} else {
 //			System.out.println("조회수 실패!");
 //		}
+		
+		
+		
+		
+		MemberService svc = new MemberServiceImpl();
+		MemberVO vo = svc.login("user1", "1111");
+		
+		if(vo != null) {
+			System.out.println(vo);
+		} else {
+			System.out.println("id, pw 확인");
+		}
 		
 	}
 }
