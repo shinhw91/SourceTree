@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!-- <!DOCTYPE html>
 <html>
 <head>
@@ -7,11 +8,16 @@
 <title>addBoardForm.jsp</title>
 </head>
 <body> -->
-<%@ include file="../layout/menu.jsp" %>
-<%@ include file="../layout/nav.jsp" %>
+<%-- <%@ include file="../layout/menu.jsp" %>
+<%@ include file="../layout/nav.jsp" %> --%>
+
+<jsp:include page="../layout/menu.jsp"></jsp:include>
+<jsp:include page="../layout/nav.jsp"></jsp:include>
+<%-- <% String logName = (String) session.getAttribute("logName"); %> --%>
+
 
 	<h3>등록화면</h3>
-	<form action="addBoard.do">
+	<form action="addBoard.do" method="post" enctype="multipart/form-data">
         <table class="table">
             <tr>
                 <th>제목</th>
@@ -23,7 +29,11 @@
             </tr>
             <tr>
                 <th>작성자</th>
-                <td><input type="text" name="writer" value="<%=logName %>"></td>
+                <td><input type="text" name="writer" readonly value="${logName }"></td>
+            </tr>
+            <tr>
+            	<th>파일</th>
+            	<td><input type="file" name="image"></td>
             </tr>
             <tr>
                 <td colspan="2" align="center">
@@ -36,4 +46,5 @@
 <!-- </body>
 </html> -->
 
-<%@ include file="../layout/foot.jsp" %>
+<%-- <%@ include file="../layout/foot.jsp" %> --%>
+<jsp:include page="../layout/foot.jsp"></jsp:include>
