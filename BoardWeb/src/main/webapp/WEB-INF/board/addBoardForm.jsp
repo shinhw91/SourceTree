@@ -11,8 +11,8 @@
 <%-- <%@ include file="../layout/menu.jsp" %>
 <%@ include file="../layout/nav.jsp" %> --%>
 
-<jsp:include page="../layout/menu.jsp"></jsp:include>
-<jsp:include page="../layout/nav.jsp"></jsp:include>
+<%-- <jsp:include page="../layout/menu.jsp"></jsp:include>
+<jsp:include page="../layout/nav.jsp"></jsp:include> --%>
 <%-- <% String logName = (String) session.getAttribute("logName"); %> --%>
 
 
@@ -47,4 +47,4 @@
 </html> -->
 
 <%-- <%@ include file="../layout/foot.jsp" %> --%>
-<jsp:include page="../layout/foot.jsp"></jsp:include>
+<%-- <jsp:include page="../layout/foot.jsp"></jsp:include> --%>

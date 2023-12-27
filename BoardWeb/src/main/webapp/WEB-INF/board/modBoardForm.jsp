@@ -11,8 +11,8 @@
 </head>
 <body> -->
 
-<jsp:include page="../layout/menu.jsp"></jsp:include>
-<jsp:include page="../layout/nav.jsp"></jsp:include>
+<%-- <jsp:include page="../layout/menu.jsp"></jsp:include>
+<jsp:include page="../layout/nav.jsp"></jsp:include> --%>
 	<h3>수정화면</h3>
 	
 <%-- 	<%
@@ -71,4 +71,4 @@
     <a href="boardList.do">글목록으로</a>
 <!-- </body>
 </html> -->
-<jsp:include page="../layout/foot.jsp"></jsp:include>
+<%-- <jsp:include page="../layout/foot.jsp"></jsp:include> --%>

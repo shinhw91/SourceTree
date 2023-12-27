@@ -25,7 +25,8 @@ public class ModifyFormControl implements Control {
 		req.setAttribute("vo", vo);
 		
 		// 페이지 이동(forward)
-		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/board/modBoardForm.jsp");
+//		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/board/modBoardForm.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("board/modBoardForm.tiles");
 		try {
 			rd.forward(req, resp);
 		} catch (ServletException | IOException e) {

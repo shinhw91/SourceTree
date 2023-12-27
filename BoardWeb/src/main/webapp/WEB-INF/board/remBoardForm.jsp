@@ -13,8 +13,8 @@
 	<%
     	BoardVO vo = (BoardVO) request.getAttribute("vo");
     %> --%>
-<jsp:include page="../layout/menu.jsp"></jsp:include>
-<jsp:include page="../layout/nav.jsp"></jsp:include>
+<%-- <jsp:include page="../layout/menu.jsp"></jsp:include>
+<jsp:include page="../layout/nav.jsp"></jsp:include> --%>
 
 	<form name="myForm" action="removeBoard.do">
 <%-- 	<input type="hidden" name="bno" value="<%=vo.getBoardNo() %>"> --%>
@@ -66,4 +66,4 @@
     <a href="boardList.do">글목록으로</a>
 <!-- </body>
 </html> -->
-<jsp:include page="../layout/foot.jsp"></jsp:include>
+<%-- <jsp:include page="../layout/foot.jsp"></jsp:include> --%>

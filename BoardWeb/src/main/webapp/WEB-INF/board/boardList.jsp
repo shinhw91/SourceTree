@@ -15,8 +15,8 @@
 <%-- <%@ include file="../layout/menu.jsp" %>
 <%@ include file="../layout/nav.jsp" %> --%>
 
-<jsp:include page="../layout/menu.jsp"></jsp:include>
-<jsp:include page="../layout/nav.jsp"></jsp:include>
+<%-- <jsp:include page="../layout/menu.jsp"></jsp:include>
+<jsp:include page="../layout/nav.jsp"></jsp:include> --%>
 
 <%-- <%
 	List<BoardVO> list = (List<BoardVO>) request.getAttribute("boardList");
@@ -61,4 +61,4 @@
 </html> -->
 
 <%-- <%@ include file="../layout/foot.jsp" %> --%>
-<jsp:include page="../layout/foot.jsp"></jsp:include>
+<%-- <jsp:include page="../layout/foot.jsp"></jsp:include> --%>

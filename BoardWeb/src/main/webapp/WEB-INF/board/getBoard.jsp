@@ -14,8 +14,8 @@
 <%-- <%@ include file="../layout/menu.jsp" %>
 <%@ include file="../layout/nav.jsp" %> --%>
 
-<jsp:include page="../layout/menu.jsp"></jsp:include>
-<jsp:include page="../layout/nav.jsp"></jsp:include>
+<%-- <jsp:include page="../layout/menu.jsp"></jsp:include>
+<jsp:include page="../layout/nav.jsp"></jsp:include> --%>
 
     <h3>상세화면</h3>
     
@@ -93,4 +93,4 @@
     </script>
 <!-- </body>
 </html> -->
-<%@ include file="../layout/foot.jsp" %>
+<%-- <%@ include file="../layout/foot.jsp" %> --%>
