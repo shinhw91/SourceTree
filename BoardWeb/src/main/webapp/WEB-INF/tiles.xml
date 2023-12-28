@@ -26,7 +26,6 @@
   	<put-attribute name="body" value="/WEB-INF/member/{1}.jsp"/>
   </definition>
   
-  
   <definition name="myhomepage" template="/WEB-INF/board/layout/template.jsp">
   	<put-attribute name="menu" value="/WEB-INF/board/layout/menu.jsp"	/>
   	<put-attribute name="nav" value="/WEB-INF/board/layout/nav.jsp"	/>

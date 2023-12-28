@@ -16,15 +16,29 @@
 		<put-attribute name="body" value="/student/{1}.jsp" />
 	</definition>
 	
-	<definition name="myproduct" template="/WEB-INF/layout/template.jsp">
-		<put-attribute name="menu" value="/WEB-INF/layout/menu.jsp"/>
-		<put-attribute name="body" value="/WEB-INF/layout/body.jsp"/>
-		<put-attribute name="footer" value="/WEB-INF/layout/footer.jsp"/>
+	<definition name="productList" template="/WEB-INF/layout/productList/template.jsp">
+		<put-attribute name="menu" value="/WEB-INF/layout/productList/menu.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/layout/productList/body.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/layout/productList/footer.jsp"/>
 	</definition>
 	
-	<definition name="WILDCARD:product/*" extends="myproduct">
+	<definition name="WILDCARD:product/*" extends="productList">
 		<put-attribute name="body" value="/WEB-INF/product/{1}.jsp"/>
 	</definition>
+	
+	
+<!-- 	<definition name="productInfo" template="/WEB-INF/layout/productInfo/template.jsp">
+		<put-attribute name="menu" value="/WEB-INF/layout/productInfo/menu.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/layout/productInfo/body.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/layout/productInfo/footer.jsp"/>
+	</definition>
+	
+	<definition name="WILDCARD:*/*" extends="productInfo">
+		<put-attribute name="body" value="/WEB-INF/{1}/{2}.jsp"/>
+	</definition> -->
+	
+
+	
 
 
 </tiles-definitions>

@@ -18,14 +18,13 @@
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">${vo.productName }</h5>
+                                    <h5 class="fw-bolder"><a href="getProduct.do?pno=${vo.productCode }">${vo.productName }</a></h5>
                                     <!-- Product reviews-->
                                     <div class="d-flex justify-content-center small text-warning mb-2">
+                                    	<c:forEach var="star" begin="1" end="${vo.likeIt }">
                                         <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
+                                        </c:forEach>
+                                      
                                     </div>
                                     <!-- Product price-->
                                     <span class="text-muted text-decoration-line-through">${vo.originPrice }</span>
