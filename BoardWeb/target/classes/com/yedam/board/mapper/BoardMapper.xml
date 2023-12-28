@@ -9,7 +9,7 @@
   </select>
   
   <select id="selectOne" resultType="board" parameterType="int">
-    select * from board board where board_no = #{bno}
+    select * from board where board_no = #{bno}
   </select>
   
   <insert id="insertBoard" parameterType="board">
