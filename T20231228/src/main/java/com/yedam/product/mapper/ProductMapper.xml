@@ -11,5 +11,9 @@
 	<select id="getProduct" resultType="product" parameterType="String">
 		select * from product where product_code = #{productCode}
 	</select>
+	
+	<select id="selectLikeList" resultType="product">
+		select * from product order by 6 desc
+	</select>
   
 </mapper>

@@ -18,7 +18,7 @@
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder"><a href="getProduct.do?pno=${vo.productCode }">${vo.productName }</a></h5>
+                                    <h5 class="fw-bolder"><a href="productInfo.do?pno=${vo.productCode }">${vo.productName }</a></h5>
                                     <!-- Product reviews-->
                                     <div class="d-flex justify-content-center small text-warning mb-2">
                                     	<c:forEach var="star" begin="1" end="${vo.likeIt }">

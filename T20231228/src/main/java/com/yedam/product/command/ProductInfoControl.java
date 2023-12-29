@@ -24,7 +24,8 @@ public class ProductInfoControl implements Control {
 		
 		req.setAttribute("vo", vo);
 		
-		List<ProductVO> list = svc.productList();
+		
+		List<ProductVO> list = svc.likeList();
 		
 		req.setAttribute("productList", list);
 		

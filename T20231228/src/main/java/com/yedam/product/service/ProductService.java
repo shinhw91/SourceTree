@@ -8,4 +8,5 @@ public interface ProductService {
 	// 목록, 단건조회.
 	public List<ProductVO> productList();
 	public ProductVO getProduct(String pno);
+	public List<ProductVO> likeList();
 }
