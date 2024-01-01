@@ -18,16 +18,26 @@
         }
     </style>
 </head>
-<body>
+<body class="bdy">
     <div id="show">
-        <span>Lorem</span>
-        <span>ipsum</span>
+        <!-- <span>Lorem</span>
+        <span>ipsum</span> -->
     </div>
     <script>
         const words = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut veritatis nobis magni officiis eligendi accusamus non sunt et. Enim rem maxime delectus itaque dolorem sunt at voluptate dolores eaque quasi.';
 
         const wordAry = words.split(' ');
 
+        let bdy = document.querySelector('.bdy');
+        let div = document.getElementById('show');
+        
+        for(let word of wordAry) {
+            let span = document.createElement('span');
+            span.innerText = word + ' ';
+            div.appendChild(span);
+        }
+
+        bdy.appendChild(div);
 
     </script>
 </body>
