@@ -7,77 +7,115 @@
 </head>
 <body>
     <p>Hello</p>
+    <div id="show"></div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>이름</th>
+                    <th>나이</th>
+                </tr>
+            </thead>
+            <tbody id="list"></tbody>
+        </table>
 
+    <!-- <script src="variable.js"></script> -->
     <script>
-        // var : 함수레벨, let, const : block 레벨
-        var name = 'Hwang';
         function myfunc() {
-            name = 'Hong';
-            console.log(name);
-            console.log(this);
+            console.log('myfunc call');
+            return 'undefined';
         }
-        myfunc();
-        console.log(name);
+        console.log(myfunc());
+        // null, undefined
+        let num = null;
+        console.log(typeof num);
 
-        let age = 20;
-        function myfunc2() {
-            let age = 22;
-            console.log(age);
+        let num1;
+        let num2 = null;
+        console.log(num1 === num2); // 값, 타입 비교
+
+        if(!num1) {  // null, undefined, '', 0 => false
+            console.log('num값은 false입니다.');
         }
-        myfunc2();
-        console.log(age);
-        let obj = {
-            id : 'Hong',
-            age : 20,
-            show : function() {
-                console.log(this);
+
+        // parseInt, parseFloat, NaN
+        num1 = '30';
+        console.log(num1, typeof num1);
+
+        num1 = parseInt(num1);
+        console.log(num1, typeof num1);
+        
+        // 삼항연산자
+        let result = (3 > 2)? 'true' : 'false';
+
+        // !(NOT) 연산자
+        console.log(!!'문자열');
+
+        // 비트연산자
+        console.log(12 & 3);    // 0000
+        console.log(12 | 3);    // 1111
+        // 12 => 1100
+        // 3 => 0011
+        console.log(12 >> 1); // 1100 -> 0110
+        console.log(12 >> 2); // 1100 -> 0011
+
+        // for ... of
+        let friends = [{name:'라이언', age:5}, {name:'어피치', age:4}];
+        for(let friend of friends) {
+            console.log('이름 : ' + friend.name + ', 나이 : ' + friend.age);
+        }
+
+        // for ... in
+        for(let prop in friends[0]) {
+            console.log('속성 : ' + prop + ', 값 : ' + friends[0][prop]); 
+        }
+
+        // forEach
+        friends[friends.length] = {name:'콘', age:2}
+        friends[friends.length] = {name:'무지', age:3}
+        friends.forEach(function(friend, idx, friendsAry) {
+            if(friend.age > 3) {
+            // if(friend['age'] > 3) {
+            // if(idx % 2 == 0) {
+            // if(idx == friendsAry.length - 1) {
+                console.log(friend, idx, friendsAry);
+            }
+        });
+
+        // forEach문
+        // let body = document.querySelector('#body');
+        // let show = document.getElementById('show');
+        // let table = document.querySelector('#table');
+        let tbody = document.getElementById('list');
+        
+        // friends.forEach(function (friend) {
+        //     if(friend.age > 3) {
+        //         tr = document.createElement('tr');
+        //         for(let prop in friend) {
+        //             let td = document.createElement('td');
+        //             td.innerText = friend[prop];
+        //             tr.appendChild(td);
+        //         }
+        //         tbody.appendChild(tr);
+        //     }
+        // })
+
+        friends.forEach(makeFriend);
+
+        // table.appendChild(tbody);
+        // show.appendChild(table);
+        // body.appendChild(show);
+
+        function makeFriend(friend) {
+            if(friend.age > 3) {
+                tr = document.createElement('tr');
+                for(let prop in friend) {
+                    let td = document.createElement('td');
+                    td.innerText = friend[prop];
+                    tr.appendChild(td);
+                }
+                tbody.appendChild(tr);
             }
         }
-        obj.show();
-
-        document.body.addEventListener('click', function() {
-            console.log(this);
-        })
-        // 1. 전역영역 : window 객체
-        // 2. 함수 : window 객체
-        // 3. 객체 : object
-        // 4. 이벤트 : 이벤트 실행 대상
-        // console.log(this);
-
-        // let show = 'Hello';
-
-        // function show() {
-        //     console.log('show');
-        // }
-
-        // () 실행
-        let show = function () {
-            console.log('show');
-            // return undefined;
-            return '반환값';
-        }
-        console.log(show());
-
-        (function() {
-            console.log('익명함수');
-        })();
-
-        // 함수명명 규칙
-        function showMyName() {
-            console.log('홍길동');
-        }
-
-        // 상수선언
-        const height = 167.9;
-        // height = 169;
-
-        const friend = {
-            name : '홍길동',
-            phone : '010-1111'
-        }
-        friend.phone = '010-2222';
-
-        // friend = {}
 
     </script>
 </body>

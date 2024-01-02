@@ -6,8 +6,8 @@
     <title>todo/20231229.html</title>
     <style>
         #show {
-            width: 300px;
-            height: 250px;
+            width: 290px;
+            height: 350px;
             background-color: aqua;
         }
         span {
@@ -15,10 +15,13 @@
             width: 80px;
             height: 30px;
             background-color: yellow;
+            margin: 2px;
         }
     </style>
 </head>
 <body class="bdy">
+    <input type="text" name="userValue" id="userValue">
+    <button id="delBtn">삭제</button>
     <div id="show">
         <!-- <span>Lorem</span>
         <span>ipsum</span> -->
@@ -28,16 +31,41 @@
 
         const wordAry = words.split(' ');
 
-        let bdy = document.querySelector('.bdy');
-        let div = document.getElementById('show');
+        // for ... of문
+        // let bdy = document.querySelector('.bdy');
+        // let div = document.getElementById('show');
         
-        for(let word of wordAry) {
-            let span = document.createElement('span');
-            span.innerText = word + ' ';
-            div.appendChild(span);
-        }
+        // for(let word of wordAry) {
+        //     let span = document.createElement('span');
+        //     span.innerText = word + ' ';
+        //     div.appendChild(span);
+        // }
 
-        bdy.appendChild(div);
+        // bdy.appendChild(div);
+
+        // forEach문
+        let show = document.getElementById('show');
+        wordAry.forEach(function (word) {
+            let span = document.createElement('span');
+            span.innerText = word;
+            show.appendChild(span);
+        })
+
+        // 삭제버튼(id=delBtn) 클릭
+        document.getElementById('delBtn').addEventListener('click', function() {
+            // 사용자의 입력값 == 화면상의 span 요소를 가져와서 span.remove();
+            // 사용자 입력화면 초기화
+
+            let input = document.getElementById('userValue').value;
+            // let input = document.querySelector('input[name=userValue]').value;
+            document.querySelectorAll('span').forEach(function (item) {
+                if(input == item.innerText) {
+                    item.remove();
+                }
+            })
+            document.getElementById('userValue').value = '';
+        })
+
 
     </script>
 </body>
