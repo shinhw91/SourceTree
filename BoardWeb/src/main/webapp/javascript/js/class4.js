@@ -21,8 +21,8 @@ const friend = {
 
 }
 friend['pets'][0]['friends'][2] = '노량이';
-delete friend.age;
-friend.ages = 20;
+// delete friend.age;
+friend.ages = 20;   // 속성추가
 friend.showFriends = function() {
     console.log(this);
 }
@@ -30,3 +30,28 @@ friend.showFriends = function() {
 console.log(friend['pets'][0]['friends']);
 console.log(friend);
 
+// 참조값을 복사
+const fcopy = friend;
+fcopy.age = 22;
+console.log(fcopy);
+
+// 객체를 복사
+const fcopy2 = Object.assign({bloodType:'O'}, friend);
+fcopy2.age = 24;
+console.log(fcopy2);
+
+// 속성추가
+Object.defineProperty(friend, 'height', {
+    get : function() {
+        return this._height;
+    },
+    set : function(value) {
+        if(value <= 0) {
+            alert('erorr');
+        } else {
+            this._height = value;
+        }
+    }
+});
+friend.height = 162;
+console.log(friend.height);
