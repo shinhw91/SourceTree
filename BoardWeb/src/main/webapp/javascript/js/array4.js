@@ -21,22 +21,30 @@ if(two) {
 }
 
 // 4. {no : 1, name : '펭수'} 형태의 값을 가지는 배열을 생성. 결과값을 strAry에 대입
-const ary2 = ary.map((item, idx) => {
+const strAry = ary.map((item, idx) => {
     let obj = {};
     obj.no = idx + 1;
     obj.name = item;
     return obj;
 });
-console.log(ary2);
-
-const strAry = [ary2];
 console.log(strAry);
 
 // reduce 활용 (교수님 js-data/array4.js)
 // 1.
-console.log('콘 : ', ary2.reduce((acc, obj) => {
+console.log('콘 :', strAry.reduce((acc, obj) => {
     if(obj.name == '콘') {
         acc++;
     }
     return acc;
 }, 0));
+
+// 2.
+console.log('3자 이상 :', strAry.reduce((acc, obj) => {
+    if(obj.name.length >= 3) {
+        acc++;
+    }
+    return acc;
+}, 0));
+
+// 3.
+console.log('2자 :', strAry.some(obj => obj.name.length == 2));
