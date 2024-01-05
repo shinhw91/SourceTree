@@ -1,8 +1,7 @@
 package com.yedam.common;
 
-import com.yedam.member.service.MemberService;
-import com.yedam.member.serviceimpl.MemberServiceImpl;
-import com.yedam.member.vo.MemberVO;
+import com.yedam.reply.service.ReplyService;
+import com.yedam.reply.serviceimpl.ReplyServiceImpl;
 
 //import com.yedam.student.mapper.StudentMapper;
 //import com.yedam.student.service.StudentService;
@@ -68,16 +67,19 @@ public class MainExe {
 //		}
 		
 		
+
+//		MemberService svc = new MemberServiceImpl();
+//		MemberVO vo = svc.login("user1", "1111");
+//		
+//		if(vo != null) {
+//			System.out.println(vo);
+//		} else {
+//			System.out.println("id, pw 확인");
+//		}
 		
-		
-		MemberService svc = new MemberServiceImpl();
-		MemberVO vo = svc.login("user1", "1111");
-		
-		if(vo != null) {
-			System.out.println(vo);
-		} else {
-			System.out.println("id, pw 확인");
-		}
+		ReplyService svc = new ReplyServiceImpl();
+//		svc.replyList(1).forEach(reply -> System.out.println(reply));
+		svc.replyListPaging(1, 1).forEach(reply -> System.out.println(reply));
 		
 	}
 }

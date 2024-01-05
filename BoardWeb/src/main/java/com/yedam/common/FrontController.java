@@ -23,6 +23,9 @@ import com.yedam.board.command.RemoveFormControl;
 import com.yedam.member.command.LoginControl;
 import com.yedam.member.command.LoginFormControl;
 import com.yedam.member.command.MemberListControl;
+import com.yedam.reply.command.AddReplyJson;
+import com.yedam.reply.command.DelReplyJson;
+import com.yedam.reply.command.ReplyListJson;
 import com.yedam.member.command.GetMemberControl;
 import com.yedam.student.command.StudentInfoCont;
 import com.yedam.student.command.StudentListCont;
@@ -65,6 +68,11 @@ public class FrontController extends HttpServlet {
 		// tiles 관련
 		map.put("/studentList.do", new StudentListCont());
 		map.put("/studentInfo.do", new StudentInfoCont());
+		
+		// 댓글관련
+		map.put("/replyListJson.do", new ReplyListJson());
+		map.put("/delReplyJson.do", new DelReplyJson());
+		map.put("/addReplyJson.do", new AddReplyJson());
 	}
 	
 	@Override
