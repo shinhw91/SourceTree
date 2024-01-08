@@ -1,5 +1,10 @@
 package com.yedam.common;
 
+import java.util.HashMap;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.yedam.reply.service.ReplyService;
 import com.yedam.reply.serviceimpl.ReplyServiceImpl;
 
@@ -77,9 +82,19 @@ public class MainExe {
 //			System.out.println("id, pw 확인");
 //		}
 		
-		ReplyService svc = new ReplyServiceImpl();
+//		ReplyService svc = new ReplyServiceImpl();
 //		svc.replyList(1).forEach(reply -> System.out.println(reply));
-		svc.replyListPaging(1, 1).forEach(reply -> System.out.println(reply));
+//		svc.replyListPaging(1, 1).forEach(reply -> System.out.println(reply));
 		
+//		int total = 70;
+//		PageDTO dto = new PageDTO(13, total);
+//		
+//		System.out.println(dto.toString());
+		
+		ReplyService svc = new ReplyServiceImpl();
+		List<HashMap<String, Object>> list = svc.chartData();
+		
+		Gson gson = new GsonBuilder().create();
+		System.out.println(gson.toJson(list));
 	}
 }
