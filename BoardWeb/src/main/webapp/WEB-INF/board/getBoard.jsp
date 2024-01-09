@@ -183,7 +183,7 @@
    	}
    	
     // Ajax 호출
-    function showList(page) {
+    function showList_backup(page) {
     	ul.innerHTML = '';
 	    const xhtp = new XMLHttpRequest();
 	    xhtp.open('get', 'replyListJson.do?bno=' + bno + '&page=' + page)
@@ -230,6 +230,20 @@
 	    	})
 	    }
     }	//
+    
+    function showList(page) {
+    	ul.innerHTML = '';
+    	fetch('replyListJson.do?bno=' + bno + '&page=' + page)
+    	.then(str => str.json())
+    	.then(result => {
+    		result.forEach(reply => {
+    			let li = makeLi(reply);
+    			ul.appendChild(li);
+    		})
+    	})
+    	.catch(reject => console.log(reject));
+    }
+    
     showList(pageInfo);
     
     // 페이지 생성
@@ -287,15 +301,41 @@
     	let reply = document.querySelector('#content').value;
     	let replyer = '${logId}';
     	
-    	const addAjax = new XMLHttpRequest();
-    	addAjax.open('get', 'addReplyJson.do?reply=' + reply + '&replyer=' + replyer + '&bno=' + bno);
-    	addAjax.send()
+    	// fetch 함수
+    	fetch('addReplyJson.do', {
+    		method : 'post',
+    		headers : {
+    			'Content-Type' : 'application/x-www-form-urlencoded'
+    		},
+    		body : 'reply=' + reply + '&replyer=' + replyer + '&bno=' + bno
+    	})
+    	.then(str => str.json())
+    	.then(result => {
+       		if(result.retCode == 'OK') {
+        		alert('처리성공!')
+        		pageInfo = 1;
+        		showList(pageInfo);
+        		pagingList();
+        		
+        		document.querySelector('#content').value = '';
+    		} else if(result.retCode == 'NG') {
+    			alert('처리중 에러!')
+    		}
+    	})
+    	.catch(err => console.error(err));
+    	
+/*      	const addAjax = new XMLHttpRequest();
+//    	addAjax.open('get', 'addReplyJson.do?reply=' + reply + '&replyer=' + replyer + '&bno=' + bno);
+    	addAjax.open('post', 'addReplyJson.do');
+    	addAjax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+//    	addAjax.send()
+    	addAjax.send('reply=' + reply + '&replyer=' + replyer + '&bno=' + bno)
     	addAjax.onload = function() {
     		let result = JSON.parse(addAjax.responseText);
-    		if(result.retCode == 'OK') {
+    		if(result.retCode == 'OK') { */
     			/* let reply = result.vo; */
-/*     			// start
-        		let li = document.createElement('li');
+     			// start
+/*         		let li = document.createElement('li');
         		let span = document.createElement('span');
         		span.innerText = '글번호 ' + reply.replyNo;
         		li.appendChild(span);
@@ -304,9 +344,9 @@
         		li.appendChild(span);
         		span = document.createElement('span');
         		span.innerText = ' ' + reply.replyer;
-        		li.appendChild(span);
+        		li.appendChild(span); */
         		
-        		// 삭제버튼
+/*         		// 삭제버튼
         		let btn = document.createElement('button');
         		btn.addEventListener('click', function() {
         			// 댓글번호 삭제 후 화면에서 제거
@@ -329,14 +369,17 @@
 				
         		/* let li = makeLi(reply);
         		ul.appendChild(li); */
+/*          		alert('처리성공!')
+        		pageInfo = 1;
         		showList(pageInfo);
+        		pagingList();
         		
         		document.querySelector('#content').value = '';
     		} else if(result.retCode == 'NG') {
     			alert('처리중 에러!')
     		}
 	    	console.log();    		
-    	}
+    	}	// end onload */
     }
     	
     </script>

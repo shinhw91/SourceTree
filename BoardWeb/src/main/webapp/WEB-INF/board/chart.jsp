@@ -8,7 +8,7 @@
       google.charts.load('current', {'packages':['corechart']});
       /* google.charts.setOnLoadCallback(drawChart); */
       
-      let chartData = [['Name', 'countPerName']];	//[[],[],[]]
+      let chartData = [['Name', 'countPerName']];	// [[],[],[]]
       const xhtp = new XMLHttpRequest();
       xhtp.open('get', 'replyCountJson.do');
       xhtp.send();
