@@ -31,13 +31,16 @@
 			
 			// 선택삭제 클릭 이벤트 등록
 			$('#delSelected').on('click', function() {
-				$(':checked').parentsUntil('tbody').remove();
-//				$('th:checked').parentsUntil('tbody').remove();
+				$('td input:checked').parentsUntil('tbody').remove();
 			})
 			
-			// 전체선택
-			$('th:checkbox').on('click', function() {
-				$(':checkbox').attr('checked');
+			// 전체선택 버튼
+			$('th input[type="checkbox"]').on('click', function() {
+				if($(this).is(':checked')) {
+					$('td input[type="checkbox"]').attr('checked', true);
+				} else {
+					$('td input[type="checkbox"]').attr('checked', false);
+				}
 			})
 			
         })

@@ -36,7 +36,7 @@ set.add('홍성길');
 set.add('홍길동');
 
 set.delete('김민수');
-console.clear();
+// console.clear();
 console.log(set.size);
 set.forEach(name => console.log(name));
 
@@ -44,7 +44,7 @@ const numAry = [10, 14, 12, 10]
 const num = new Set(numAry);    // 배열 -> Set
 num.forEach(number => console.log(number));
 
-console.clear();
+// console.clear();
 map.clear();
 
 // 김씨 점수의 합계
