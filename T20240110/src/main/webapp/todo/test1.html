@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>test1</title>
+</head>
+<body>
+<!--문제1 -->
+<!-- data.json파일의 정보를 읽어서 급여가 4500이상, 여성회원을 콘솔에 출력하세요. -->
+
+<script>
+		fetch('../data/data.json')	// url, option 객체
+			.then(result => {
+				console.log(result);
+				return result.json();	// 문자열 => 객체
+			})
+			.then(json => {
+				let targetAry = [];
+				json.forEach((item, idx) => {
+					if(json[idx].salary >= 4500 && json[idx].gender == 'Female') {
+						targetAry.push(json[idx]);
+					}
+				})
+				console.log(targetAry);
+				
+			})
+			.catch(error => {
+				console.error(error);
+			})
+			
+			
+			
+			
+			
+			
+</script>
+</body>
+</html>

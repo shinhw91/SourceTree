@@ -31,16 +31,21 @@
 			
 			// 선택삭제 클릭 이벤트 등록
 			$('#delSelected').on('click', function() {
-				$('td input:checked').parentsUntil('tbody').remove();
+				$('td input[type="checkbox"]:checked').parentsUntil('tbody').remove();
 			})
 			
-			// 전체선택 버튼
-			$('th input[type="checkbox"]').on('click', function() {
-				if($(this).is(':checked')) {
-					$('td input[type="checkbox"]').attr('checked', true);
-				} else {
-					$('td input[type="checkbox"]').attr('checked', false);
-				}
+			// 전체선택 버튼(attr checked 오류 -> prop 사용 권장)
+//			$('th input[type="checkbox"]').on('click', function() {
+//				if(this.checked) {
+//					$('td input[type="checkbox"]').attr('checked', 'checked');
+//				} else {
+//					$('td input[type="checkbox"]').attr('checked', null);
+//				}
+//			})
+			
+			// 전체선택/해제
+			$('thead input[type="checkbox"').on('click', function() {
+				$('tbody input[type="checkbox"]').prop('checked', this.checked);	// prop(속성명, bool값)
 			})
 			
         })

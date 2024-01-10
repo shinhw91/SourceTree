@@ -22,7 +22,7 @@ public class MemberListControl implements Control {
 		req.setAttribute("memberList", list);
 		
 		try {
-			req.getRequestDispatcher("/admin/memberList.tiles").forward(req, resp);
+			req.getRequestDispatcher("admin/memberList.tiles").forward(req, resp);
 		} catch (ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

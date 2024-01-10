@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>test2</title>
+</head>
+<body>
+<!--문제2 -->
+<!-- 2024년 1월 달력을 출력하세요. cal.show() 메소드를 호출. -->
+<table border="1">
+    <thead id="theader"></thead>
+    <tbody id="tbody"></tbody>
+</table>
+
+<script>
+	let year = 2024;
+	let month = 1;
+	
+	class Calender {
+		constructor(year, month) {
+			this.year = year;
+			this.month = month;
+		}
+		
+		days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat'];
+		
+		show() {
+	        console.log('달력생성');
+	        this.makeTitle(document.getElementById('theader'))
+	        this.makeBody(document.getElementById('tbody'))
+	    }
+	
+	    makeTitle(pos) {
+	        let tr = document.createElement('tr');
+	        this.days.forEach(function(field) {
+	            let th = document.createElement('th');
+	            th.innerText = field;
+	            tr.appendChild(th);
+	        })
+	        pos.appendChild(tr);
+	    }
+	
+	    makeBody(pos) {
+	        let tr = document.createElement('tr');
+	        // 공백
+	        let firstDay = this.getFirstDay();
+	        for(let i = 0; i < firstDay; i++) {
+	            let td = document.createElement('td');
+	            td.innerText = "";
+	            tr.appendChild(td);
+	        }
+	    
+	        // 날짜
+	        let lastDate = this.getLastDate();
+	        for(let i = 1; i <= lastDate; i++) {
+	            let td = document.createElement('td');
+	            td.innerText = i;
+	            tr.appendChild(td);
+	            
+	            if((firstDay + i) % 7 == 0) {
+	                pos.appendChild(tr);
+	                tr = document.createElement('tr');
+	            }
+	            
+	            // 토요일 : pink, 일요일 : aqua
+	            if((firstDay + i) % 7 == 1) {
+	                td.setAttribute('style', 'background-color : aqua');
+	            } else if((firstDay + i) % 7 == 0) {
+	                td.setAttribute('style', 'background-color : pink');
+	            }
+	        }
+	        pos.appendChild(tr);
+	    }
+	
+	    getFirstDay() {
+	        let day = new Date(this.year, this.month - 1 , 1);
+	        return day.getDay();
+	    }
+	
+	    getLastDate() {
+	        // 년, 월 : this.year, this.month
+	        let day = new Date(this.year, this.month, 0);
+	        return day.getDate();
+	    }
+		
+	}
+
+const novemberCal = new Calender(year, month);
+novemberCal.show();
+	
+</script>
+</body>
+</html>
