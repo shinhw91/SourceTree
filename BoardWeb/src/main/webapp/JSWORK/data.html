@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .goodsmimg {
+            width : 200px;
+        }
+        .goodsborder {
+            border : 3px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="goods">
+        <h1>상품1</h1>
+        <img src="apple.jpg" class="goodsmimg goodsborder">
+        <div>가격 : 1000</div>
+        <div>
+            <button data-goodno="g1" class="btnOrder" data-price="1000">주문</button>
+        </div>
+    </div>
+    <!-- <div class="goods">
+        <h1>상품2</h1>
+        <img src="banana.jpg">
+        <div>가격 : 2000</div>
+        <div>
+            <button data-goodno="g2" class="btnOrder" data-price="2000">주문</button>
+        </div>
+    </div> -->
+    <script>
+        //const btn1 = document.querySelector("button");
+        // const btn2 = document.querySelectorAll("button")[1];
+
+        const btnOrders = document.querySelectorAll(".btnOrder");
+        // for(i = 0; i < btnOrders.length; i++) {
+        //     btnOrders[i].addEventListener('click', function() {
+        //         // debugger
+        //         console.log(window.event.target.dataset.goodno);
+        //         // alert('클릭됨!');
+        //     });
+        // };
+        
+        // for(btnNode of btnOrders) {
+        //     btnNode.addEventListener('click', function() {
+        //         console.log(window.event.target.dataset.goodno);
+        //     });
+        // };
+
+        // for(i in btnOrders) {
+        //     btnOrders[i].addEventListener('click', function() {
+        //         console.log(window.event.target.dataset.goodno);
+        //     });
+        // };
+
+        btnOrders.forEach((node, idx) => {
+            node.addEventListener('click', function() {
+                console.log(event.target.dataset.goodno);
+            })
+        });
+
+        const newNode = `<div class="goods">
+                            <h1>상품2</h1>
+                            <img src="banana.jpg">
+                            <div>가격 : 2000</div>
+                            <div>
+                                <button data-goodno="g2" class="btnOrder" data-price="2000">주문</button>
+                            </div>
+                        </div>`
+        
+        // document.body.insertAdjacentHTML('beforeend', newNode)
+    </script>
+</body>
+</html>
