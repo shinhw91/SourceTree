@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <td>10</td>
+            <td>20</td>
+            <td>30</td>
+        </tr>
+    </table>
+
+    <script>
+        let total = 0;
+        $("td").each((i, item) => {
+            // console.log(item.innerHTML);
+            // console.log($(item).html());
+            // total += parseInt($(item).html());
+            total += Number($(item).html());
+        })
+        console.log("total=", total)
+
+        // 자바스크립트 forEach : return false 실행 안됨
+        document.querySelectorAll("td").forEach((item, idx) => {
+            console.log(item.innerText);
+            if(idx == 0)
+                return
+        })
+
+        $("td").each((idx, item) => {
+            console.log(item.innerHTML);
+            if(idx == 0)
+                return false
+        })
+    </script>
+
+    <!--  -->
+    <input id="txtFruit">
+    <button id="btnAdd">추가</button>
+    <button id="btnDel">삭제</button>
+    <select id="selFruit" size="10">
+        <option>사과</option>
+    </select>
+
+    <script>
+                    // on(타입, 핸들러(리스너))
+        $("#btnAdd").on("click", () => {
+            // let op = $("<option>")
+            // op.text($("#txtFruit").val())
+            // $("#selFruit").append(op);
+            $("<option>").text($("#txtFruit").val())
+                        .appendTo($("#selFruit"));
+
+            $("#txtFruit").val("")
+        })
+
+        // 엔터 이벤트
+        $("#txtFruit").on("keypress", () => {
+            if(event.keyCode == 13) {
+                $("#btnAdd").click();
+            }
+        })
+
+        // select 초기화 (option 태그 삭제)
+        $("#btnDel").on("click", () => {
+            // $("#selFruit").html("");
+            $("#selFruit").empty();
+        })
+
+
+    </script>
+</body>
+</html>

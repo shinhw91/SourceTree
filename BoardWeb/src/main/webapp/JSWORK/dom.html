@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="txtFruit">
+    <button id="btnAdd">추가</button>
+    <button id="btnDel">삭제</button>
+    <select id="selFruit" size="10">
+        <option>사과</option>
+    </select>
+    <script>
+        // 버튼 클릭 이벤트
+        document.querySelector('#btnAdd').addEventListener('click', function() {
+            // input 태그의 값을 option 태그로 생성해서 select append
+            // value, createElement(), append()
+            let op = document.createElement('option');
+            op.innerText = txtFruit.value;
+            selFruit.append(op);
+            txtFruit.value = "";
+        })
+
+        // 엔터 이벤트
+        txtFruit.addEventListener("keypress", function() {
+            if(event.keyCode == 13) {
+                btnAdd.click();
+            }
+        })
+
+        // select 초기화 (option 태그 삭제)
+        btnDel.addEventListener("click", () => {
+            selFruit.innerHTML = "";
+        })
+
+        var fruit = {
+            a : () => {console.log("a")},
+            b : p => p*2,
+            c : function() {console.log("c")},
+            d() {console.log("d")}
+        }
+        var name = 'choi';
+        var age = 20;
+        var emp = {name, age, print() {}};  // {name : name, age : age, print:function() {}}
+    </script>
+</body>
+</html>
